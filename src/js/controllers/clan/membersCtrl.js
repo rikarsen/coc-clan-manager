@@ -1,4 +1,4 @@
-app.controller('MembersCtrl', ['$scope', 'ClanFactory', 'FunctionsFactory', '$uibModal', function ($scope, ClanFactory, FunctionsFactory, $uibModal) {
+app.controller('MembersCtrl', ['$scope', 'ClanFactory', 'FunctionsFactory', '$uibModal', '$timeout', function ($scope, ClanFactory, FunctionsFactory, $uibModal, $timeout) {
     $scope.clanFactory = ClanFactory;
     $scope.functionsFactory = FunctionsFactory;
 
@@ -8,6 +8,40 @@ app.controller('MembersCtrl', ['$scope', 'ClanFactory', 'FunctionsFactory', '$ui
     $scope.syncing = false;
 
     $scope.selectedName = '';
+
+    // var index = 0, index1 = 0, b = 0;
+    //
+    // $scope.clanFactory.aaaa().then(function (clans) {
+    //     angular.forEach(clans, function (clan) {
+    //         $timeout(function () {
+    //             $scope.clanFactory.bbbb({tag: clan.tag}).then(function (clan) {
+    //                 angular.forEach(clan.memberList, function (clanMember) {
+    //                     $timeout(function () {
+    //                         $scope.clanFactory.cccc({tag: clanMember.tag}).then(function (member) {
+    //                             console.log(++b, member)
+    //                         });
+    //                     }, index1 * 1000);
+    //
+    //                     index1++;
+    //                 });
+    //             });
+    //         }, index * 300);
+    //
+    //         index++;
+    //     });
+    // });
+
+    window.members = [];
+
+    $scope.clanFactory.dddd().then(function (members) {
+        angular.forEach(members, function (member) {
+            if(member.townHallLevel == 9) {
+
+                window.members.push(member);
+                console.log(member);
+            }
+        })
+    });
 
     $scope.getMembers = function (update) {
         $scope.clanFactory.getMembers(update).then(function (members) {

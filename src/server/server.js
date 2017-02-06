@@ -57,3 +57,75 @@ app.post('/syncMembers', function (req, res) {
 
     res.sendStatus(200);
 });
+
+
+app.get('/aaaa', function (req, res) {
+    client
+        .locations()
+        .withId(32000018)
+        .byClan()
+        .fetch()
+        .then(function (response) {
+            // var clans = [],
+            //     items = response.items;
+            //
+            // for(var i = 0; i < 5; i++) {
+            //     var tag = items[i].tag;
+            //
+            //     setTimeout(function () {
+            //         client
+            //             .clanByTag(tag)
+            //             .then(function (response) {
+            //                 clans.push(response);
+            //
+            //                 res.send(clans);
+            //             })
+            //             .catch(function (err) {
+            //                 res.status(err.statusCode).send(err);
+            //             });
+            //
+            //     },3000);
+            // }
+            //
+            res.send(response.items);
+        })
+        .catch(function (err) {
+            res.send(err);
+        });
+});
+
+app.post('/bbbb', function (req, res) {
+    client
+        .clanByTag(req.body.tag)
+        .then(function (response) {
+            res.send(response);
+        })
+        .catch(function (err) {
+            res.status(err.statusCode).send(err);
+        });
+});
+
+app.post('/cccc', function (req, res) {
+    client
+        .playerByTag(req.body.tag)
+        .then(function (member) {
+            db.collection('players').updateOne(
+                { 'tag': member.tag },
+                { $set: member },
+                { upsert: true }
+            );
+
+            res.send(member);
+        })
+        .catch(function (err) {
+            res.status(err.statusCode).send(err);
+        });
+});
+
+app.get('/dddd', function (req, res) {
+    db.collection('players').find({townHallLevel: 3}).toArray(function (err, result) {
+        if (err) return console.log(err);
+
+        res.send(result);
+    });
+});

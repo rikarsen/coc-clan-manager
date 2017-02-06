@@ -23,6 +23,30 @@ app.factory('ClanFactory', ['$http', '$q', function ($http, $q) {
         },
         syncMembers: function (syncMembers) {
             return $http.post('/syncMembers', syncMembers);
-        }
+        },
+        aaaa: function () {
+            return $http.get('/aaaa')
+                .then(function (res) {
+                    return res.data;
+                });
+        },
+        bbbb: function (tag) {
+            return $http.post('/bbbb', tag)
+                .then(function (res) {
+                    return res.data;
+                });
+        },
+        cccc: function (tag) {
+            return $http.post('/cccc', tag)
+                .then(function (res) {
+                    return res.data;
+                });
+        },
+        dddd: function () {
+            return $http.get('/dddd')
+                .then(function (res) {
+                    return res.data;
+                });
+        },
     };
 }]);
