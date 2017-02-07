@@ -2,5 +2,5 @@
 _old/
 _temp/
 node_modules/
-bower_components/
+src/vendors/
 .DS_Store
